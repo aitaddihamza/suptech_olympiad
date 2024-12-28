@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+    .section-min-height {
+        min-height: calc(100vh - 68px);
+    }
+
+    .toggle-btn {
+        @apply [&>div::before]:translate-y-0 [&>div::before]:rotate-45 [&>div::after]:translate-y-0 [&>div::after]:-rotate-45 [&>div]:bg-transparent [&>div]:rotate-[720deg];
+    }
+
+    .btn-primary {
+        @apply [&]:p-2 [&]:bg-blue-600 [&]:border [&]:text-center [&]:border-solid [&]:border-blue-600 [&]:rounded [&]:text-white [&]:hover:bg-transparent [&]:hover:text-blue-600 [&]:duration-300 [&]:transition-all;
+    }
+
+    .btn {
+        @apply [&]:p-2 [&]:border [&]:text-center [&]:border-solid [&]:rounded [&]:text-white [&]:duration-300 [&]:transition-all;
+    }
+}
