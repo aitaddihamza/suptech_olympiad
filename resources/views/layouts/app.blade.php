@@ -38,8 +38,6 @@
                     <nav class="hidden md:flex  space-x-6">
                         @if (Auth::user()->role == 'admin')
                             @include('layouts.navigation.admin')
-                        @elseif(Auth::user()->role == 'organisator')
-                            <a href="#participant">organisator</a>
                         @else
                             @include('layouts.navigation.participant')
                         @endif

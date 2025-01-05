@@ -38,6 +38,7 @@
                         <a href="#" class="text-white hover:text-blue-300 text-lg">Home</a>
                         <a href="#activities" class="text-white hover:text-blue-300 text-lg">Activities</a>
                         <a href="#events" class="text-white hover:text-blue-300 text-lg">Events</a>
+                        <a href="#matches" class="text-white hover:text-blue-300 text-lg">Matches</a>
                         <a href="#about" class="text-white hover:text-blue-300 text-lg">About</a>
                         <a href="/login" class="text-white hover:text-blue-300 text-lg">Login</a>
                     </nav>

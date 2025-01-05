@@ -27,11 +27,5 @@ class DatabaseSeeder extends Seeder
             'role' => 'participant',
             'email' => 'hamza@suptech-sante.ma',
         ]);
-        User::factory()->create([
-            'nom' => 'ahmed',
-            'prenom' => 'said',
-            'role' => 'organisator',
-            'email' => 'ahmed@suptech-sante.ma',
-        ]);
     }
 }
