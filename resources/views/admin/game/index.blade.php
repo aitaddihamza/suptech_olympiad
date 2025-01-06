@@ -14,6 +14,11 @@
                     </option>
                 @endforeach
             </select>
+
+            <label for="schedule_date">Filtrer par date</label>
+            <input type="date" class="border border-solid p-2 rounded bg-whit flex-1" name="schedule_date"
+                id="schedule_date" value="{{ request('schedule_date') }}">
+
             <button class="btn bg-black">Filtrer</button>
         </form>
         @include('shared.flash')
@@ -48,7 +53,8 @@
                     <tr class="hover:bg-papayawhip">
                         <td class="px-6 py-4 whitespace-nowrap">{{ $game->player1->nom }} {{ $game->player1->prenom }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-center">{{ $game->score1 }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ $game->player2->nom }} {{ $game->player2->prenom }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ $game->player2->nom }} {{ $game->player2->prenom }}
+                        </td>
                         <td class="px-6 py-4 whitespace-nowrap text-center">{{ $game->score2 }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ ucfirst($game->activity->name) }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">

@@ -38,7 +38,7 @@
                 <nav class="hidden md:flex  space-x-6">
                     <a href="/#home" class="text-white hover:text-blue-300 text-lg">Acceuil</a>
                     <a href="/#activities" class="text-white hover:text-blue-300 text-lg">activities</a>
-                    <a href="{{ route('home.classememnts') }}"
+                    <a href="{{ route('home.classements') }}"
                         class="text-white hover:text-blue-300 text-lg">classement</a>
                     <a href="/#events" class="text-white hover:text-blue-300 text-lg">events</a>
                     <a href="{{ route('home.matches') }}" class="text-white hover:text-blue-300 text-lg">matches</a>

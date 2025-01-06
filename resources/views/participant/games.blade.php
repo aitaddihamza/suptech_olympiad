@@ -7,7 +7,7 @@
         @if ($games->isEmpty())
             <p class="text-gray-600">aucun match </p>
         @else
-            <table class="min-w-full border-collapse border border-gray-300">
+            <table class="min-w-full border-collapse border border-gray-300 bg-white">
                 <thead>
                     <tr class="bg-gray-100">
                         <th class="border px-4 py-2">Match</th>

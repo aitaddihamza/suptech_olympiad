@@ -5,7 +5,6 @@ namespace Database\Factories;
 use App\Models\User;
 use App\Models\Activity;
 use App\Models\Game;
-use Faker\Generator as Faker;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class GameFactory extends Factory
@@ -18,9 +17,10 @@ class GameFactory extends Factory
         $player1 = User::where('role', 'participant')->inRandomOrder()->first();
         $player2 = User::where('role', 'participant')->inRandomOrder()->first();
 
-        // Ensure both players are valid
-        if (!$player1 || !$player2) {
-            throw new \Exception("Not enough participants found.");
+        // Ensure both players are valid and different
+        while (!$player1 || !$player2 || $player1->id == $player2->id) {
+            $player1 = User::where('role', 'participant')->inRandomOrder()->first();
+            $player2 = User::where('role', 'participant')->inRandomOrder()->first();
         }
 
         // Ensure there is at least one activity available
@@ -33,7 +33,7 @@ class GameFactory extends Factory
             'player1_id' => $player1->id,
             'player2_id' => $player2->id,
             'activity_id' => $activity->id,
-            'schedule_date' => $this->faker->dateTimeBetween('now', '+30 days'),
+            'schedule_date' => $this->faker->dateTimeBetween('-365 days', '-30 days'),
             'score1' => $this->faker->numberBetween(0, 10),
             'score2' => $this->faker->numberBetween(0, 10),
         ];

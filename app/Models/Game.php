@@ -2,10 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class Game extends Model
 {
+    use HasFactory;
+    use Notifiable;
     protected $fillable = ['player1_id', 'player2_id', 'activity_id', 'score1', 'score2', 'schedule_date'];
     protected $casts = [
         'schedule_date' => 'datetime',
@@ -35,11 +39,11 @@ class Game extends Model
     public function getStatusAttribute()
     {
         if ($this->schedule_date->isFuture()) {
-            return 'Upcoming';
+            return 'À venir';
         } elseif ($this->schedule_date->isToday()) {
-            return 'Ongoing';
+            return 'En cours';
         } else {
-            return 'Completed';
+            return 'Terminé';
         }
     }
 }

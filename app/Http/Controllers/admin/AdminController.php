@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class AdminController extends Controller
 {
@@ -63,30 +64,35 @@ class AdminController extends Controller
     {
         // Get the selected activity from the request, defaulting to 'tous' (all)
         $activityName = $request->input('activity', 'tous');
+        $scheduleDate = $request->input('schedule_date');
 
         // Get the activity ID based on the selected activity name
+        $query = Game::query();
+
+        // Filter by activity if it's not 'tous'
         if ($activityName != 'tous') {
             $activity = Activity::where('name', $activityName)->first();
 
             // Check if the activity exists
             if (!$activity) {
-                // Handle the case where the activity does not exist
                 return redirect()->route('games.index')->with('error', 'Activity not found.');
             }
 
             // Fetch the games associated with the selected activity
-            $games = Game::where('activity_id', $activity->id)
-                        ->orderBy('updated_at', 'desc')
-                        ->paginate(5);
-        } else {
-            // Fetch all games if no activity is selected
-            $games = Game::orderBy('updated_at', 'desc')->paginate(5);
+            $query->where('activity_id', $activity->id);
         }
 
-        // Pass the games and the selected activity name to the view
+        // Filter by schedule date if it's provided
+        if ($scheduleDate) {
+            $query->whereDate('schedule_date', '=', Carbon::parse($scheduleDate)->format('Y-m-d'));
+        }
+
+        // Fetch the games with pagination
+        $games = $query->orderBy('updated_at', 'desc')->paginate(5);
+
+        // Pass the games, the selected activity name, and other necessary data to the view
         return view('admin.game.index', compact('games', 'activityName'));
     }
-
     public function create_game()
     {
         $game = new Game();
