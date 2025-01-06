@@ -19,6 +19,7 @@ class AdminController extends Controller
     # participnat crud
     public function participants(Request $request)
     {
+
         // Get filter inputs
         $inputs = $request->only('prenom', 'nom', 'activity');
 
@@ -35,21 +36,26 @@ class AdminController extends Controller
         }
 
         if ($request->filled('activity') && $request->activity !== 'tous') {
-            // Assuming you have a relationship between User and Activity
-            $request->activity = $request->activity == 'ping_pong' ? 'ping pong' : 'chess';
-            $activity = Activity::where('name', $request->activity)->first();
+            // Normalize the activity name (if necessary)
+            $activityName = $request->activity === 'ping_pong' ? 'ping pong' : $request->activity;
+
+            // Check if the activity exists
+            $activity = Activity::where('name', $activityName)->first();
             if ($activity) {
-                $query->whereHas('activities', function ($query) use ($activity) {
-                    $query->where('activity_id', $activity->id);
+                $query->whereHas('activities', function ($q) use ($activity) {
+                    $q->where('activity_id', $activity->id);
                 });
             }
         }
-        // Paginate the results and order by the latest update
 
-        $participants = $query->orderBy('updated_at', 'desc')->paginate(10);
+        // Paginate the results and order by the latest update
+        $participants = $query->with('activities') // Load related activities for better performance
+            ->orderBy('updated_at', 'desc')
+            ->paginate(10);
 
         // Pass the participants and filter inputs to the view
-        return view("admin.participant.index", compact('participants', 'inputs'));
+        return view('admin.participant.index', compact('participants', 'inputs'));
+
     }
 
     # games crud
@@ -100,6 +106,12 @@ class AdminController extends Controller
             'schedule_date' => 'required|date',
         ]);
 
+        if ($validated['player1_id'] == $validated['player2_id']) {
+            return back()->withErrors(['error' =>  'Les deux joueurs doivent être différents']);
+        }
+        if ($validated['schedule_date'] < now()) {
+            return back()->withErrors(['schedule_date' =>  'la date doit être supérieure à la date actuelle']);
+        }
         // Create the new game
         $game = new Game();
         $validated['activity'] = $validated['activity'] == 'ping_pong' ? 'ping pong' : 'chess';

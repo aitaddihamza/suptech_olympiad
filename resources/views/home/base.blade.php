@@ -10,13 +10,14 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 </head>
 
-<body class="font-sans antialiased dark:bg-black dark:text-white/50">
-    <div class="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
+<body class="font-sans antialiased dark:bg-black dark:text-white/50 flex flex-col min-h-screen">
+    <div class="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50 flex-grow">
         <header class="bg-gradient-to-r from-blue-600 to-purple-600 shadow-lg sticky top-0 z-10">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 pb-4">
                 <div class="flex justify-between items-end py-4">
@@ -33,12 +34,13 @@
                         <span>SuptechOlympiad</span>
                     </a>
 
-
                     <!-- navigation menu -->
                     <nav class="hidden md:flex  space-x-6">
-                        <a href="#" class="text-white hover:text-blue-300 text-lg">home</a>
-                        <a href="#activities" class="text-white hover:text-blue-300 text-lg">activities</a>
-                        <a href="#events" class="text-white hover:text-blue-300 text-lg">events</a>
+                        <a href="/#home" class="text-white hover:text-blue-300 text-lg">Acceuil</a>
+                        <a href="/#activities" class="text-white hover:text-blue-300 text-lg">activities</a>
+                        <a href="/#events" class="text-white hover:text-blue-300 text-lg">events</a>
+                        <a href="{{ route('home.classements') }}"
+                            class="text-white hover:text-blue-300 text-lg">classement</a>
                         <a href="{{ route('home.matches') }}" class="text-white hover:text-blue-300 text-lg">matches</a>
                         @auth
                             <form method="POST" action="{{ route('logout') }}">
@@ -75,11 +77,13 @@
                 </nav>
             </div>
         </header>
-        @yield('content')
-
+        <main class="flex-1">
+            @yield('content')
+        </main>
     </div>
-    <footer class="bg-white shadow-lg sticky top-0 z-10">
-        <p class="text-center text-xl p-2">made by passionat software enginer hamza ait addi 2024</p>
+
+    <footer class="bg-white shadow-lg mt-8 py-4">
+        <p class="text-center text-xl p-2">made by passionate software engineer Hamza Ait Addi 2024</p>
     </footer>
     <script>
         // Mobile menu toggle script

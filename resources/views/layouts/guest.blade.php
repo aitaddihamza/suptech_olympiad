@@ -20,7 +20,7 @@
     <header class="bg-gradient-to-r from-blue-600 to-purple-600 shadow-lg sticky top-0 z-10">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 pb-4">
             <div class="flex justify-between items-end py-4">
-                <!-- Logo -->
+                <!-- logo -->
                 <a href="/"
                     class="flex items-center space-x-2 text-white text-2xl font-extrabold tracking-wide hover:text-blue-300">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
@@ -33,22 +33,49 @@
                     <span>SuptechOlympiad</span>
                 </a>
 
-                <!-- Navigation Menu -->
+
+                <!-- navigation menu -->
                 <nav class="hidden md:flex  space-x-6">
-                    <a href="#about" class="text-white hover:text-blue-300 text-lg">Acceuil</a>
-                    <a href="/register" class="text-white hover:text-blue-300 text-lg">register</a>
-                    <a href="/login" class="text-white hover:text-blue-300 text-lg">login</a>
+                    <a href="/#home" class="text-white hover:text-blue-300 text-lg">Acceuil</a>
+                    <a href="/#activities" class="text-white hover:text-blue-300 text-lg">activities</a>
+                    <a href="{{ route('home.classememnts') }}"
+                        class="text-white hover:text-blue-300 text-lg">classement</a>
+                    <a href="/#events" class="text-white hover:text-blue-300 text-lg">events</a>
+                    <a href="{{ route('home.matches') }}" class="text-white hover:text-blue-300 text-lg">matches</a>
+                    @auth
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            @method('POST')
+                            <button type="submit" class="text-white hover:text-blue-300 text-lg">logout</button>
+                        </form>
+                    @endauth
+                    @guest
+                        <a href="/register" class="text-white hover:text-blue-300 text-lg">register</a>
+                        <a href="/login" class="text-white hover:text-blue-300 text-lg">login</a>
+                    @endguest
                 </nav>
 
-                <!-- Mobile Menu Button -->
+                <!-- mobile menu button -->
                 <button id="mobile-menu-button"
                     class="block md:hidden text-white focus:outline-none focus:ring-2 focus:ring-blue-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewbox="0 0 24 24"
+                        stroke="currentcolor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 6h16M4 12h16m-7 6h7" />
+                            d="m4 6h16m4 12h16m-7 6h7" />
                     </svg>
                 </button>
+            </div>
+
+            <!-- mobile menu -->
+            <nav id="mobile-menu"
+                class="hidden md:hidden flex flex-col space-y-2 mt-2 bg-purple-700 text-white p-4 rounded-lg">
+                <a href="#" class="hover:text-blue-300 text-lg">home</a>
+                <a href="#activities" class="hover:text-blue-300 text-lg">activities</a>
+                <a href="#events" class="hover:text-blue-300 text-lg">events</a>
+                <a href="#about" class="hover:text-blue-300 text-lg">about</a>
+                <a href="#login" class="hover:text-blue-300 text-lg">login</a>
+            </nav>
+        </div>
     </header>
     <div class="min-h-screen flex flex-col sm:justify-center items-center sm:pt-0 bg-gray-100 dark:bg-gray-900">
         <div

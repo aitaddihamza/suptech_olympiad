@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\ActivityController;
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\home\HomeController;
 use App\Http\Controllers\participant\ParticipantController;
@@ -9,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/matches', [HomeController::class, 'matches'])->name('home.matches');
+Route::get('/classements', [HomeController::class, 'classements'])->name('home.classements');
 
 # admin routes
 Route::prefix('/admin')->middleware(['auth', 'verified', AdminAccess::class])->controller(AdminController::class)->group(function () {
@@ -24,6 +26,13 @@ Route::prefix('/admin')->middleware(['auth', 'verified', AdminAccess::class])->c
     Route::prefix('/participant')->group(function () {
         Route::get('/', 'participants')->name('admin.participant.index');
     });
+
+    # activity crud
+    Route::prefix('/activity')->controller(ActivityController::class)->group(function () {
+        Route::get('/', 'index')->name('admin.activity.index');
+        Route::get('/planing/{activity}', 'planing')->name('admin.activity.planing');
+        Route::put('/planing/{activity}', 'update_planing')->name('admin.activity.update_planing');
+    });
 });
 
 # particiapnt routes
@@ -34,6 +43,8 @@ Route::prefix('/participant')->controller(ParticipantController::class)->middlew
     });
     Route::prefix('/activity')->group(function () {
         Route::get('/', 'activities')->name('participant.activities');
+        Route::post('/{activity}', 'participate')->name('participant.activity.participate');
+        Route::delete('/{activity}', 'cancel')->name('participant.activity.cancel');
     });
 });
 

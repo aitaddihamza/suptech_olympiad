@@ -29,7 +29,7 @@
                         autofocus autocomplete="pingpong" />
                 </div>
             </div>
-            <x-input-error :messages="$errors->get('activites')" class="mt-2" />
+            <x-input-error :messages="$errors->get('activities')" class="mt-2" />
         </div>
         <!-- Email Address -->
         <div class="mt-4">

@@ -6,6 +6,7 @@ use App\Models\Activity;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class ParticipantController extends Controller
 {
@@ -40,4 +41,18 @@ class ParticipantController extends Controller
         return view('participant.activities', compact('participatedActivities', 'nonParticipatedActivities'));
     }
 
+    public function participate(Activity $activity)
+    {
+        $user = Auth::user();
+        $user->activities()->attach($activity->id);
+        return to_route('participant.activities')->with('success', 'Vous participez maintenant à cette activité');
+
+    }
+    public function cancel(Activity $activity)
+    {
+        $user = Auth::user();
+        $user->activities()->detach($activity->id);
+        return to_route('participant.activities')->with('success', 'Vous avez annulé votre participation à cette activité');
+
+    }
 }

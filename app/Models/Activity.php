@@ -8,6 +8,9 @@ use App\Models\Game;
 
 class Activity extends Model
 {
+    protected $fillable = [
+        'name', 'date_debut', 'date_fin', 'description',
+    ];
     protected $casts = [
        'date_debut' => 'date',
        'date_fin' => 'date',

@@ -30,43 +30,40 @@
                             <p class="text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
-                    <div class="flex flex-col md:flex-row md:items-center gap-2">
-                        {{-- Select Player 1 --}}
-                        <div class="py-2 text-left flex-1">
-                            <label for="player1" class="block text-sm font-medium text-gray-700">Player 1</label>
-                            <select id="player1" name="player1_id"
-                                class="border-2 border-gray-100 focus:outline-none bg-gray-100 block w-full py-2 px-4 rounded-lg focus:border-gray-700">
-                                @foreach ($players as $player)
-                                    <option value="{{ $player->id }}"
-                                        {{ old('player1_id', $game->player1_id) == $player->id ? 'selected' : '' }}>
-                                        {{ $player->prenom }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('player1_id')
-                                <p class="text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
+                    <div>
+                        <div class="flex flex-col md:flex-row md:items-center gap-2">
+                            {{-- Select Player 1 --}}
+                            <div class="py-2 text-left flex-1">
+                                <label for="player1" class="block text-sm font-medium text-gray-700">Player 1</label>
+                                <select id="player1" name="player1_id"
+                                    class="border-2 border-gray-100 focus:outline-none bg-gray-100 block w-full py-2 px-4 rounded-lg focus:border-gray-700">
+                                    @foreach ($players as $player)
+                                        <option value="{{ $player->id }}"
+                                            {{ old('player1_id', $game->player1_id) == $player->id ? 'selected' : '' }}>
+                                            {{ $player->prenom }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
 
-                        {{-- Select Player 2 --}}
-                        <div class="py-2 text-left flex-1">
-                            <label for="player2" class="block text-sm font-medium text-gray-700">Player 2</label>
-                            <select id="player2" name="player2_id"
-                                class="border-2 border-gray-100 focus:outline-none bg-gray-100 block w-full py-2 px-4 rounded-lg focus:border-gray-700">
-                                @foreach ($players as $player)
-                                    <option value="{{ $player->id }}"
-                                        {{ old('player2_id', $game->player2_id) == $player->id ? 'selected' : '' }}>
-                                        {{ $player->prenom }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('player2_id')
-                                <p class="text-red-600">{{ $message }}</p>
-                            @enderror
+                            {{-- Select Player 2 --}}
+                            <div class="py-2 text-left flex-1">
+                                <label for="player2" class="block text-sm font-medium text-gray-700">Player 2</label>
+                                <select id="player2" name="player2_id"
+                                    class="border-2 border-gray-100 focus:outline-none bg-gray-100 block w-full py-2 px-4 rounded-lg focus:border-gray-700">
+                                    @foreach ($players as $player)
+                                        <option value="{{ $player->id }}"
+                                            {{ old('player2_id', $game->player2_id) == $player->id ? 'selected' : '' }}>
+                                            {{ $player->prenom }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
-
+                        @error('error')
+                            <p class="text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
-
                     {{-- Initial Scores --}}
                     <div class="flex flex-col md:flex-row md:items-center gap-2">
                         <div class="py-2 text-left flex-1">

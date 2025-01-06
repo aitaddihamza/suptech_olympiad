@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Activity;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -44,6 +45,34 @@ class RegisteredUserController extends Controller
             $image_path = $request->file('image')->store('profiles', 'public');
         }
 
+        // Collect selected activities
+        $activities = [];
+        if ($request->has('chess')) {
+            $activities[] = 1; // Assuming 1 is the ID for chess in the activities table
+        }
+        if ($request->has('pingpong')) {
+            $activities[] = 2; // Assuming 2 is the ID for ping pong in the activities table
+        }
+
+        // Validate activity start dates
+        if (!empty($activities)) {
+            $invalidActivities = [];
+            foreach ($activities as $activityId) {
+                $activity = Activity::find($activityId);
+                if ($activity && $activity->date_debut <= now()) {
+                    $invalidActivities[] = $activity->name; // Collect invalid activity names
+                }
+            }
+            if (!empty($invalidActivities)) {
+                return back()->withErrors([
+                    'activities' => "Vous ne pouvez pas vous inscrire à l'activité {$invalidActivities[0]} car il déjà commencée " ,
+                ]);
+            }
+        } else {
+            // If no activities are selected, return with an error
+            return back()->withErrors(['activities' => 'Vous devez choisir au moins une activité !']);
+        }
+
         // Create the user
         $user = User::create([
             'nom' => $request->nom,
@@ -54,22 +83,8 @@ class RegisteredUserController extends Controller
             'role' => 'participant', // Assign the role as participant
         ]);
 
-        // Collect selected activities
-        $activities = [];
-        if ($request->has('chess')) {
-            $activities[] = 1; // Assuming 1 is the ID for chess in the activities table
-        }
-        if ($request->has('pingpong')) {
-            $activities[] = 2; // Assuming 2 is the ID for ping pong in the activities table
-        }
-
-        // Attach activities to the user if any are selected
-        if (!empty($activities)) {
-            $user->activities()->attach($activities);
-        } else {
-            // If no activities are selected, return with an error
-            return back()->withErrors(['activites' => 'Vous devez choisir au moins une activité !']);
-        }
+        // Attach activities to the user
+        $user->activities()->attach($activities);
 
         // Fire the Registered event
         event(new Registered($user));
@@ -79,5 +94,6 @@ class RegisteredUserController extends Controller
 
         // Redirect the participant to their dashboard
         return redirect()->route('participant.dashboard');
+
     }
 }

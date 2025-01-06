@@ -2,17 +2,17 @@
 @section('title', 'activities')
 @section('content')
     <div class="container mx-auto p-4">
-        <h1 class="text-2xl font-bold mb-4">My Games</h1>
+        <h1 class="text-2xl font-bold mb-4">Mes Matches</h1>
 
         @if ($games->isEmpty())
-            <p class="text-gray-600">No games found.</p>
+            <p class="text-gray-600">aucun match </p>
         @else
             <table class="min-w-full border-collapse border border-gray-300">
                 <thead>
                     <tr class="bg-gray-100">
-                        <th class="border px-4 py-2">Game</th>
-                        <th class="border px-4 py-2">Activity</th>
-                        <th class="border px-4 py-2">Schedule</th>
+                        <th class="border px-4 py-2">Match</th>
+                        <th class="border px-4 py-2">Activité</th>
+                        <th class="border px-4 py-2">Calendrier</th>
                         <th class="border px-4 py-2">Status</th>
                     </tr>
                 </thead>

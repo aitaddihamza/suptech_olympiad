@@ -6,7 +6,7 @@
 
         <!-- Upcoming Matches Table -->
         <div class="bg-white shadow-lg rounded-lg overflow-hidden mb-8">
-            <h2 class="text-2xl font-semibold text-gray-800 p-4 bg-gray-100">Upcoming Matches</h2>
+            <h2 class="text-2xl font-semibold text-gray-800 p-4 bg-gray-100">Matchs à venir</h2>
             <div class="overflow-x-auto">
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
@@ -53,7 +53,7 @@
 
         <!-- Past Matches Table -->
         <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-            <h2 class="text-2xl font-semibold text-gray-800 p-4 bg-gray-100">Past Matches</h2>
+            <h2 class="text-2xl font-semibold text-gray-800 p-4 bg-gray-100">Matchs passés</h2>
             <div class="overflow-x-auto">
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
@@ -107,8 +107,8 @@
 
         <!-- Pagination Links -->
         <div class="mt-4">
-            {{ $upcomingMatches->links() }}
             {{ $pastMatches->links() }}
+            {{ $upcomingMatches->links() }}
         </div>
     </div>
 @endsection

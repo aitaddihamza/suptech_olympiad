@@ -29,6 +29,8 @@
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prénom </th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Activitées
+                    </th>
                 </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
@@ -37,6 +39,15 @@
                         <td class="px-6 py-4 whitespace-nowrap">{{ $participant->nom }} </td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ $participant->prenom }} </td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ $participant->email }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            @for ($i = 0; $i < count($participant->activities); $i++)
+                                @if ($i == count($participant->activities) - 1)
+                                    {{ $participant->activities[$i]->name }}
+                                @else
+                                    {{ $participant->activities[$i]->name . ' && ' }}
+                                @endif
+                            @endfor
+                        </td>
                     </tr>
                 @empty
                     <tr>
