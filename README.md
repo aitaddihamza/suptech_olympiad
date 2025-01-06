@@ -35,12 +35,21 @@
     npm install
 ```
 
-4. migrer les tables
+4. migrate tables and seed data 
 
 ```bash
-    php artisan migrate --seed
+    php artisan migrate 
+```
+```bash
+    php artisan db:seed --class=ActivitySeeder 
 ```
 
+```bash
+    php artisan db:seed --class=UserSeeder 
+```
+```bash
+    php artisan db:seed --class=GameSeeder 
+```
 5. Démarer le serveur de développement php :
 
 ```bash
