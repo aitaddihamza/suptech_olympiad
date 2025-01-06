@@ -20,8 +20,8 @@
         <header class="bg-gradient-to-r from-blue-600 to-purple-600 shadow-lg sticky top-0 z-10">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 pb-4">
                 <div class="flex justify-between items-end py-4">
-                    <!-- Logo -->
-                    <a href="#"
+                    <!-- logo -->
+                    <a href="/"
                         class="flex items-center space-x-2 text-white text-2xl font-extrabold tracking-wide hover:text-blue-300">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor" stroke-width="2">
@@ -33,206 +33,83 @@
                         <span>SuptechOlympiad</span>
                     </a>
 
-                    <!-- Navigation Menu -->
+
+                    <!-- navigation menu -->
                     <nav class="hidden md:flex  space-x-6">
-                        <a href="#" class="text-white hover:text-blue-300 text-lg">Home</a>
-                        <a href="#activities" class="text-white hover:text-blue-300 text-lg">Activities</a>
-                        <a href="#events" class="text-white hover:text-blue-300 text-lg">Events</a>
-                        <a href="#matches" class="text-white hover:text-blue-300 text-lg">Matches</a>
-                        <a href="#about" class="text-white hover:text-blue-300 text-lg">About</a>
-                        <a href="/login" class="text-white hover:text-blue-300 text-lg">Login</a>
+                        <a href="#" class="text-white hover:text-blue-300 text-lg">home</a>
+                        <a href="#activities" class="text-white hover:text-blue-300 text-lg">activities</a>
+                        <a href="#events" class="text-white hover:text-blue-300 text-lg">events</a>
+                        <a href="{{ route('home.matches') }}" class="text-white hover:text-blue-300 text-lg">matches</a>
+                        @auth
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                @method('POST')
+                                <button type="submit" class="text-white hover:text-blue-300 text-lg">logout</button>
+                            </form>
+                        @endauth
+                        @guest
+                            <a href="/register" class="text-white hover:text-blue-300 text-lg">register</a>
+                            <a href="/login" class="text-white hover:text-blue-300 text-lg">login</a>
+                        @endguest
                     </nav>
 
-                    <!-- Mobile Menu Button -->
+                    <!-- mobile menu button -->
                     <button id="mobile-menu-button"
                         class="block md:hidden text-white focus:outline-none focus:ring-2 focus:ring-blue-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewbox="0 0 24 24"
+                            stroke="currentcolor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 6h16M4 12h16m-7 6h7" />
+                                d="m4 6h16m4 12h16m-7 6h7" />
                         </svg>
                     </button>
                 </div>
 
-                <!-- Mobile Menu -->
+                <!-- mobile menu -->
                 <nav id="mobile-menu"
                     class="hidden md:hidden flex flex-col space-y-2 mt-2 bg-purple-700 text-white p-4 rounded-lg">
-                    <a href="#" class="hover:text-blue-300 text-lg">Home</a>
-                    <a href="#activities" class="hover:text-blue-300 text-lg">Activities</a>
-                    <a href="#events" class="hover:text-blue-300 text-lg">Events</a>
-                    <a href="#about" class="hover:text-blue-300 text-lg">About</a>
-                    <a href="#login" class="hover:text-blue-300 text-lg">Login</a>
+                    <a href="#" class="hover:text-blue-300 text-lg">home</a>
+                    <a href="#activities" class="hover:text-blue-300 text-lg">activities</a>
+                    <a href="#events" class="hover:text-blue-300 text-lg">events</a>
+                    <a href="#about" class="hover:text-blue-300 text-lg">about</a>
+                    <a href="#login" class="hover:text-blue-300 text-lg">login</a>
                 </nav>
             </div>
         </header>
-        <section class="bg-gradient-to-r from-blue-500 to-purple-600 text-white">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex flex-col md:flex-row items-center justify-between py-16">
-                    <!-- Texte principal -->
-                    <div class="text-center md:text-left md:w-1/2">
-                        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-6">
-                            Rejoignez le <span class="text-yellow-300">SuptechOlympiad</span>
-                        </h1>
-                        <p class="text-lg md:text-xl mb-8">
-                            Participez à des activités passionnantes telles que le <strong>ping-pong</strong>, le
-                            <strong>basketball</strong>, le <strong>football</strong> et les <strong>échecs</strong>.
-                            Découvrez, apprenez et brillez !
-                        </p>
-                        <div class="flex flex-col sm:flex-row sm:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
-                            <a href="#activities"
-                                class="bg-yellow-400 text-blue-800 px-6 py-3 rounded-lg font-bold text-lg hover:bg-yellow-500">
-                                Découvrir les activités
-                            </a>
-                            <a href="/register"
-                                class="bg-white text-blue-800 px-6 py-3 rounded-lg font-bold text-lg hover:bg-gray-200">
-                                S'inscrire maintenant
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Carousel auto-glissant -->
-                    <div class="mt-10 md:mt-0 md:w-1/2 relative">
-                        <div class="relative w-full h-[300px] overflow-hidden rounded-lg shadow-lg">
-                            <!-- Carousel avec une image de fond -->
-                            <div id="carousel"
-                                class="flex items-end justify-center pb-2 md:w-full w-[350px] h-full bg-cover bg-center bg-no-repeat"
-                                style="background-image: url('https://www.suptech-sante.ma/SUPTECH_SANTE-main/assets/ping pong.png');">
-                                <h3 id="carousel-image-name"
-                                    class="text-white text-center text-xl font-bold bg-black/50 p-2 rounded-md">
-                                    Ping Pong
-                                </h3>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-        <section id="activities" class="bg-gray-100 py-16">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-3xl md:text-4xl font-extrabold text-center text-gray-800 mb-12">
-                    Nos Activités
-                </h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <!-- Carte d'activité -->
-                    <div class="relative group bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl">
-                        <div class="w-full h-48 bg-cover bg-center transition-transform duration-300 group-hover:scale-110"
-                            style="background-image: url('https://www.suptech-sante.ma/SUPTECH_SANTE-main/assets/ping pong.png');">
-                        </div>
-                        <div class="p-4">
-                            <h3 class="text-xl font-semibold text-gray-800 group-hover:text-blue-600">Ping Pong</h3>
-                            <p class="text-gray-600 mt-2">Un sport rapide et stratégique pour les passionnés de
-                                raquette.</p>
-                        </div>
-                    </div>
-
-                    <!-- Carte d'activité -->
-                    <div class="relative group bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl">
-                        <div class="w-full h-48 bg-cover bg-center transition-transform duration-300 group-hover:scale-110"
-                            style="background-image: url('https://www.suptech-sante.ma/SUPTECH_SANTE-main/assets/gaming.png');">
-                        </div>
-                        <div class="p-4">
-                            <h3 class="text-xl font-semibold text-gray-800 group-hover:text-blue-600">Basketball</h3>
-                            <p class="text-gray-600 mt-2">Rejoignez l'équipe et shootez vos paniers !</p>
-                        </div>
-                    </div>
-
-                    <!-- Carte d'activité -->
-                    <div class="relative group bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl">
-                        <div class="w-full h-48 bg-cover bg-center transition-transform duration-300 group-hover:scale-110"
-                            style="background-image: url('https://www.suptech-sante.ma/SUPTECH_SANTE-main/assets/chess.png');">
-                        </div>
-                        <div class="p-4">
-                            <h3 class="text-xl font-semibold text-gray-800 group-hover:text-blue-600">Football</h3>
-                            <p class="text-gray-600 mt-2">Montrez vos talents et marquez des buts spectaculaires.</p>
-                        </div>
-                    </div>
-
-                    <!-- Carte d'activité -->
-                    <div class="relative group bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl">
-                        <div class="w-full h-48 bg-cover bg-center transition-transform duration-300 group-hover:scale-110"
-                            style="background-image: url('http://localhost:8000/images/foot.png');">
-                        </div>
-                        <div class="p-4">
-                            <h3 class="text-xl font-semibold text-gray-800 group-hover:text-blue-600">Échecs</h3>
-                            <p class="text-gray-600 mt-2">Un jeu de stratégie pour stimuler votre esprit et votre
-                                réflexion.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="bg-gradient-to-r from-blue-500 to-purple-600 text-white py-16">
-            <div class="container mx-auto px-4">
-                <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Événements Récents</h2>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Événement 1 -->
-                    <div class="bg-white shadow-lg rounded-lg p-6 flex flex-col">
-                        <img src="https://via.placeholder.com/400" alt="Tournoi de Basket" class="rounded-lg mb-4">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Tournoi de Basket 2024</h3>
-                        <p class="text-gray-600 mb-4">Date : 25 Décembre 2024<br>Lieu : Gymnase Universitaire</p>
-                        <a href="#"
-                            class="text-white bg-blue-600 hover:bg-blue-700 py-2 px-4 rounded-md text-center">Voir les
-                            détails</a>
-                    </div>
-
-                    <!-- Événement 2 -->
-                    <div class="bg-white shadow-lg rounded-lg p-6 flex flex-col">
-                        <img src="https://via.placeholder.com/400" alt="Tournoi de Football" class="rounded-lg mb-4">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Tournoi de Football 2024</h3>
-                        <p class="text-gray-600 mb-4">Date : 30 Décembre 2024<br>Lieu : Terrain Sportif A</p>
-                        <a href="#"
-                            class="text-white bg-blue-600 hover:bg-blue-700 py-2 px-4 rounded-md text-center">Voir les
-                            détails</a>
-                    </div>
-
-                    <!-- Événement 3 -->
-                    <div class="bg-white shadow-lg rounded-lg p-6 flex flex-col">
-                        <img src="https://via.placeholder.com/400" alt="Tournoi de Ping-Pong"
-                            class="rounded-lg mb-4">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Tournoi de Ping-Pong 2024</h3>
-                        <p class="text-gray-600 mb-4">Date : 5 Janvier 2025<br>Lieu : Salle de Ping-Pong</p>
-                        <a href="#"
-                            class="text-white bg-blue-600 hover:bg-blue-700 py-2 px-4 rounded-md text-center">Voir les
-                            détails</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
+        @yield('content')
 
     </div>
+    <footer class="bg-white shadow-lg sticky top-0 z-10">
+        <p class="text-center text-xl p-2">made by passionat software enginer hamza ait addi 2024</p>
+    </footer>
     <script>
-        // Mobile Menu Toggle Script
+        // Mobile menu toggle script
         const mobileMenuButton = document.getElementById("mobile-menu-button");
         const mobileMenu = document.getElementById("mobile-menu");
 
-        mobileMenuButton.addEventListener("click", () => {
-            mobileMenu.classList.toggle("hidden");
-        });
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener("click", () => {
+                mobileMenu.classList.toggle("hidden");
+            });
+        }
 
-        // Script pour le carousel auto-glissant
+        // Script for auto-sliding carousel
         const carousel = document.getElementById("carousel");
         const carouselImageName = document.getElementById("carousel-image-name");
-        //carousel.style.backgroundImage = "url('https://www.suptech-sante.ma/SUPTECH_SANTE-main/assets/ping pong.png')";
-        let index = 0;
 
-        const images = ["chess", "gaming", "ping pong"];
+        let index = 0;
+        const images = ["chess", "gaming", "pong"];
 
         function slideCarousel() {
             if (index >= images.length) {
                 index = 0;
             }
-            carousel.style.backgroundImage =
-                `url('https://www.suptech-sante.ma/SUPTECH_SANTE-main/assets/${images[index]}.png')`
+            carousel.style.backgroundImage = `url('http://localhost:8000/images/${images[index]}.jpg')`;
             carousel.style.transition = "0.5s";
             carouselImageName.innerText = images[index];
             index++;
         }
 
-        setInterval(slideCarousel, 3000); // Change d'image toutes les 3 secondes
+        setInterval(slideCarousel, 4000); // Change image every 3 seconds
     </script>
 </body>
 

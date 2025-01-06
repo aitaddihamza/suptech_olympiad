@@ -6,6 +6,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Activity;
+use App\Models\Game;
 
 class User extends Authenticatable
 {
@@ -23,6 +25,7 @@ class User extends Authenticatable
         'prenom',
         'image_path',
         'email',
+        'role',
         'password',
     ];
 
@@ -49,4 +52,16 @@ class User extends Authenticatable
         ];
     }
 
+    public function activities()
+    {
+        return $this->belongsToMany(Activity::class, 'activity_user', 'user_id', 'activity_id')
+                    ->withTimestamps();
+    }
+
+
+    public function games()
+    {
+        return $this->belongsToMany(Game::class, 'game_user', 'user_id', 'game_id')
+                    ->withTimestamps(); // Add this if you have timestamps in your pivot table
+    }
 }

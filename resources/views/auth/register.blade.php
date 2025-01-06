@@ -15,6 +15,22 @@
             <x-input-error :messages="$errors->get('prenom')" class="mt-2" />
         </div>
 
+        <div>
+            <x-input-label for="" class="my-2" :value="__('Sélectionnez les activitées: ')" />
+            <div class="flex gap-8 mt-4">
+                <div>
+                    <x-input-label for="chess" :value="__('chess')" />
+                    <x-text-input id="name" class="w-8 h-8" type="checkbox" name="chess" :value="old('chess')"
+                        autofocus autocomplete="chess" />
+                </div>
+                <div>
+                    <x-input-label for="pingpong" :value="__('pingpong')" />
+                    <x-text-input id="name" class="w-8 h-8" type="checkbox" name="pingpong" :value="old('pingpong')"
+                        autofocus autocomplete="pingpong" />
+                </div>
+            </div>
+            <x-input-error :messages="$errors->get('activites')" class="mt-2" />
+        </div>
         <!-- Email Address -->
         <div class="mt-4">
             <x-input-label for="image" :value="__('Selectionnez une image de profil')" class="mb-2" />

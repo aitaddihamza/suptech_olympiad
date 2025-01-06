@@ -27,5 +27,12 @@ class DatabaseSeeder extends Seeder
             'role' => 'participant',
             'email' => 'hamza@suptech-sante.ma',
         ]);
+
+        // Seed activities first
+        $this->call(ActivitySeeder::class);
+
+        // Now, seed users (if needed) or games after activities are seeded
+        $this->call(UserSeeder::class);  // This could be your User seeder if you have it
+        $this->call(GameSeeder::class);
     }
 }
