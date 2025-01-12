@@ -86,11 +86,11 @@ class HomeController extends Controller
         $usersQuery = User::where('role', 'participant')
             ->whereHas('games', function ($query) use ($activity, $selectedYear) {
                 $query->where('activity_id', $activity->id)
-                      ->whereYear('games.created_at', $selectedYear); // Explicit table reference
+                      ->whereYear('games.schedule_date', $selectedYear); // Explicit table reference
             })
             ->with(['games' => function ($query) use ($activity, $selectedYear) {
                 $query->where('activity_id', $activity->id)
-                      ->whereYear('games.created_at', $selectedYear); // Explicit table reference
+                      ->whereYear('games.schedule_date', $selectedYear); // Explicit table reference
             }]);
 
         // Appliquer le filtrage par nom ou prénom si spécifié

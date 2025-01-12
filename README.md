@@ -66,5 +66,5 @@
 
 6. s'authentifier en tant que admin avec les crédetials suivantes:
 
-<b>email:</b>: suptech_admin@suptech-sante.ma <br />
+<b>email:</b> suptech_admin@suptech-sante.ma <br />
 <b>password:</b> password
