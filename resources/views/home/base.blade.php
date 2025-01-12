@@ -121,25 +121,6 @@
                 mobileMenu.classList.toggle("hidden");
             });
         }
-
-        // Script for auto-sliding carousel
-        const carousel = document.getElementById("carousel");
-        const carouselImageName = document.getElementById("carousel-image-name");
-
-        let index = 0;
-        const images = ["chess", "gaming", "pong"];
-
-        function slideCarousel() {
-            if (index >= images.length) {
-                index = 0;
-            }
-            carousel.style.backgroundImage = `url('http://localhost:8000/images/${images[index]}.jpg')`;
-            carousel.style.transition = "0.5s";
-            carouselImageName.innerText = images[index];
-            index++;
-        }
-
-        setInterval(slideCarousel, 4000); // Change image every 3 seconds
     </script>
 </body>
 

@@ -31,7 +31,7 @@
                     <div class="relative w-full h-[300px] overflow-hidden rounded-lg shadow-lg">
                         <!-- carousel avec une image de fond -->
                         <div id="carousel"
-                            class="flex items-end justify-center pb-2 md:w-full w-[350px] h-full bg-cover bg-center bg-no-repeat"
+                            class="flex items-end justify-center pb-2 md:w-full w-[350px] h-full bg-cover bg-center bg-no-repeat "
                             style="background-image: url('http://localhost:8000/images/pong.jpg');">
                             <h3 id="carousel-image-name"
                                 class="text-white text-center text-xl font-bold bg-black/50 p-2 rounded-md">
@@ -134,6 +134,38 @@
                 </div>
             </div>
         </div>
+        <script>
+            const carousel = document.getElementById("carousel");
+            const carouselImageName = document.getElementById("carousel-image-name");
+
+            carousel.addEventListener("click", () => {
+                console.log("clicked ");
+            })
+
+            let index = 0;
+            const images = ["chess", "gaming", "pong"];
+
+            function slideCarousel() {
+                if (index >= images.length) {
+                    index = 0;
+                }
+                // Ensure smooth transition by resetting the transition time before changing the image
+                carousel.style.transition = "none"; // Reset transition to avoid jump
+                carousel.style.backgroundImage = `url('http://localhost:8000/images/${images[index]}.jpg')`;
+                carouselImageName.innerText = images[index];
+
+                // Trigger reflow to reset transition before applying it again
+                void carousel.offsetWidth; // This forces a reflow
+
+                // Now apply the transition
+                carousel.style.transition = "background-image 0.5s ease-in-out"; // Add transition to background-image
+
+                index++;
+            }
+
+            // Initialize the carousel to change every 3 seconds
+            setInterval(slideCarousel, 2500);
+        </script>
     </section>
 
 @endsection
