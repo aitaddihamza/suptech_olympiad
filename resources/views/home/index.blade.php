@@ -98,7 +98,7 @@
             </div>
         </div>
     </section>
-    <section class="bg-gradient-to-r from-blue-500 to-purple-600 text-white py-16">
+    <section class="bg-gradient-to-r from-blue-500 to-purple-600 text-white py-16" id="events">
         <div class="container mx-auto px-4">
             <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">événements récents</h2>
 

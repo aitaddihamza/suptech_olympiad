@@ -13,9 +13,70 @@ use Carbon\Carbon;
 
 class AdminController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view("admin.dashboard");
+        // Determine the year to filter
+        $currentYear = now()->year;
+        $selectedYear = $request->get('year', $currentYear);
+
+        // Statistics for the selected year
+        $totalUsers = User::whereYear('created_at', $selectedYear)->count();
+        $totalGames = Game::whereYear('created_at', $selectedYear)->count();
+        $totalActivities = Activity::count(); // Activities are assumed to be static.
+
+        // Activity-based stats
+        $activityStats = Activity::with(['games' => function ($query) use ($selectedYear) {
+            $query->whereYear('created_at', $selectedYear);
+        }])
+            ->get()
+            ->map(function ($activity) {
+                return [
+                    'name' => $activity->name,
+                    'games' => $activity->games->count(),
+                ];
+            });
+
+        // Participation stats (for the pie chart)
+        $participantStats = Activity::with(['games.participants' => function ($query) use ($selectedYear) {
+            $query->whereYear('game_user.created_at', $selectedYear);
+        }])
+            ->get()
+            ->map(function ($activity) {
+                return [
+                    'name' => $activity->name,
+                    'participants' => $activity->games->reduce(function ($carry, $game) {
+                        return $carry + $game->participants->count();
+                    }, 0),
+                ];
+            });
+
+        // Games breakdown
+        $completedGames = Game::whereNotNull('score1')
+            ->whereNotNull('score2')
+            ->whereYear('created_at', $selectedYear)
+            ->count();
+        $upcomingGames = Game::where('schedule_date', '>', now())
+            ->whereYear('created_at', $selectedYear)
+            ->count();
+        $ongoingGames = Game::where('schedule_date', '<=', now())
+            ->whereNull('score1')
+            ->whereNull('score2')
+            ->whereYear('created_at', $selectedYear)
+            ->count();
+
+        // Pass data to the view
+        return view('admin.dashboard', [
+            'totalUsers' => $totalUsers,
+            'totalGames' => $totalGames,
+            'totalActivities' => $totalActivities,
+            'activityStats' => $activityStats,
+            'participantStats' => $participantStats,
+            'completedGames' => $completedGames,
+            'upcomingGames' => $upcomingGames,
+            'ongoingGames' => $ongoingGames,
+            'selectedYear' => $selectedYear,
+            'availableYears' => range(2024, $currentYear),
+        ]);
     }
     # participnat crud
     public function participants(Request $request)
@@ -136,7 +197,7 @@ class AdminController extends Controller
         ]);
 
         // Redirect back with a success message
-        return redirect()->route('admin.game.index')->with('success', 'Game created successfully!');
+        return redirect()->route('admin.game.index')->with('success', 'le match a été bien créé ');
     }
 
     public function edit_game(Game $game)
@@ -176,12 +237,12 @@ class AdminController extends Controller
         ]);
 
         // Redirect back with a success message
-        return redirect()->route('admin.game.index')->with('success', 'Game updated successfully!');
+        return redirect()->route('admin.game.index')->with('success', "le matche a bien été modifié !");
     }
     public function destroy_game(Game $game)
     {
         $game->delete();
-        return to_route('admin.game.index')->with('warning', "le jeu a bien été supprimé !");
+        return to_route('admin.game.index')->with('warning', "le matche a bien été supprimé !");
     }
 
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\participant;
 
 use App\Models\Activity;
+use App\Models\Game;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -10,10 +11,42 @@ use Illuminate\Support\Facades\Auth;
 
 class ParticipantController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view("participant.dashboard");
+        // Get the current user's ID
+        $user = auth()->user();
+
+        // Fetch user-specific stats
+        $gamesPlayed = $user->games->count();
+        $upcomingGames = $user->games()->where('schedule_date', '>', now())->count();
+        $completedGames = $user->games()->whereNotNull('score1')->whereNotNull('score2')->count();
+
+        // Get the current year
+        $currentYear = now()->year;
+
+        // Fetch statistics for the participant
+        $activityStats = Activity::with(['games' => function ($query) use ($user, $currentYear) {
+            $query->whereHas('participants', function ($query) use ($user) {
+                $query->where('user_id', $user->id);
+            })
+            ->whereYear('created_at', $currentYear);
+        }])->get()->map(function ($activity) {
+            return [
+                'name' => $activity->name,
+                'games' => $activity->games->count(),
+            ];
+        });
+
+        // Pass data to the view
+        return view('participant.dashboard', [
+            'user' => $user,
+            'gamesPlayed' => $gamesPlayed,
+            'upcomingGames' => $upcomingGames,
+            'completedGames' => $completedGames,
+            'activityStats' => $activityStats,
+        ]);
     }
+
 
     public function games()
     {

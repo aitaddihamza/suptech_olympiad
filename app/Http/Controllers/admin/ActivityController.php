@@ -27,7 +27,7 @@ class ActivityController extends Controller
         ]);
 
         $activity->update($request->all());
-        return redirect()->route('admin.activity.index')->with('success', 'Activity planing updated successfully');
+        return redirect()->route('admin.activity.index')->with('success', 'Planification de l\'activité mise à jour avec succès.');
     }
 
 }

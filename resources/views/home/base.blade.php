@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
 
 <head>
     <meta charset="utf-8">
@@ -16,7 +16,7 @@
 
 </head>
 
-<body class="font-sans antialiased dark:bg-black dark:text-white/50 flex flex-col min-h-screen">
+<body class="font-sans antialiased dark:bg-black dark:text-white/50 flex flex-col min-h-screen ">
     <div class="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50 flex-grow">
         <header class="bg-gradient-to-r from-blue-600 to-purple-600 shadow-lg sticky top-0 z-10">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 pb-4">
@@ -34,34 +34,37 @@
                         <span>SuptechOlympiad</span>
                     </a>
 
-                    <!-- navigation menu -->
-                    <nav class="hidden md:flex  space-x-6">
+                    <!-- navigation menu (desktop) -->
+                    <nav class="hidden md:flex space-x-6">
                         <a href="/#home" class="text-white hover:text-blue-300 text-lg">Acceuil</a>
-                        <a href="/#activities" class="text-white hover:text-blue-300 text-lg">activities</a>
-                        <a href="/#events" class="text-white hover:text-blue-300 text-lg">events</a>
+                        <a href="/#activities" class="text-white hover:text-blue-300 text-lg">Activities</a>
                         <a href="{{ route('home.classements') }}"
-                            class="text-white hover:text-blue-300 text-lg">classement</a>
-                        <a href="{{ route('home.matches') }}" class="text-white hover:text-blue-300 text-lg">matches</a>
+                            class="text-white hover:text-blue-300 text-lg">Classement</a>
+                        <a href="/#events" class="text-white hover:text-blue-300 text-lg">Events</a>
+                        <a href="{{ route('home.matches') }}" class="text-white hover:text-blue-300 text-lg">Matches</a>
                         @auth
+                            <a href="{{ route(Auth::user()->role . '.dashboard') }}"
+                                class="text-white hover:text-blue-300 text-lg">mon
+                                espace</a>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 @method('POST')
-                                <button type="submit" class="text-white hover:text-blue-300 text-lg">logout</button>
+                                <button type="submit" class="text-white hover:text-blue-300 text-lg">Logout</button>
                             </form>
                         @endauth
                         @guest
-                            <a href="/register" class="text-white hover:text-blue-300 text-lg">register</a>
-                            <a href="/login" class="text-white hover:text-blue-300 text-lg">login</a>
+                            <a href="/register" class="text-white hover:text-blue-300 text-lg">Register</a>
+                            <a href="/login" class="text-white hover:text-blue-300 text-lg">Login</a>
                         @endguest
                     </nav>
 
                     <!-- mobile menu button -->
                     <button id="mobile-menu-button"
                         class="block md:hidden text-white focus:outline-none focus:ring-2 focus:ring-blue-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewbox="0 0 24 24"
-                            stroke="currentcolor">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m4 6h16m4 12h16m-7 6h7" />
+                                d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
                     </button>
                 </div>
@@ -69,13 +72,36 @@
                 <!-- mobile menu -->
                 <nav id="mobile-menu"
                     class="hidden md:hidden flex flex-col space-y-2 mt-2 bg-purple-700 text-white p-4 rounded-lg">
-                    <a href="#" class="hover:text-blue-300 text-lg">home</a>
-                    <a href="#activities" class="hover:text-blue-300 text-lg">activities</a>
-                    <a href="#events" class="hover:text-blue-300 text-lg">events</a>
-                    <a href="#about" class="hover:text-blue-300 text-lg">about</a>
-                    <a href="#login" class="hover:text-blue-300 text-lg">login</a>
+                    <a href="/#home" class="hover:text-blue-300 text-lg">Acceuil</a>
+                    <a href="/#activities" class="hover:text-blue-300 text-lg">Activities</a>
+                    <a href="/#events" class="hover:text-blue-300 text-lg">Events</a>
+                    <a href="{{ route('home.classements') }}" class="hover:text-blue-300 text-lg">Classement</a>
+                    <a href="{{ route('home.matches') }}" class="hover:text-blue-300 text-lg">Matches</a>
+                    @auth
+                        <a href="{{ route(Auth::user()->role . '.dashboard') }}" class="hover:text-blue-300 text-lg">mon
+                            espace</a>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            @method('POST')
+                            <button type="submit" class="text-white hover:text-blue-300 text-lg">Logout</button>
+                        </form>
+                    @endauth
+                    @guest
+                        <a href="/register" class="hover:text-blue-300 text-lg">Register</a>
+                        <a href="/login" class="hover:text-blue-300 text-lg">Login</a>
+                    @endguest
                 </nav>
             </div>
+
+            <script>
+                // Mobile menu toggle
+                const mobileMenuButton = document.getElementById('mobile-menu-button');
+                const mobileMenu = document.getElementById('mobile-menu');
+
+                mobileMenuButton.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            </script>
         </header>
         <main class="flex-1">
             @yield('content')

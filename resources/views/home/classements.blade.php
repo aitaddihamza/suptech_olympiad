@@ -14,6 +14,14 @@
                 @endforeach
             </select>
 
+            <select name="year" class="border border-gray-300 bg-white rounded-lg p-2">
+                @foreach ($years as $year)
+                    <option value="{{ $year }}" {{ $year == $selectedYear ? 'selected' : '' }}>
+                        {{ $year }}
+                    </option>
+                @endforeach
+            </select>
+
             <input type="text" name="prenom" placeholder="Prénom" value="{{ request('prenom') }}"
                 class="border border-gray-300 rounded-lg p-2" />
 

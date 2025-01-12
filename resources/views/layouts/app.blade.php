@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
 
 <head>
     <meta charset="utf-8">
@@ -15,6 +15,9 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 </head>
 
 <body class="min-h-screen flex flex-col ">
@@ -35,8 +38,8 @@
                         <span>SuptechOlympiad</span>
                     </a>
 
-                    <!-- Navigation Menu -->
-                    <nav class="hidden md:flex  space-x-6">
+                    <!-- Navigation Menu (Desktop) -->
+                    <nav class="hidden md:flex space-x-6">
                         @if (Auth::user()->role == 'admin')
                             @include('layouts.navigation.admin')
                         @else
@@ -58,6 +61,31 @@
                                 d="M4 6h16M4 12h16m-7 6h7" />
                         </svg>
                     </button>
+                </div>
+
+                <!-- Mobile Menu (Hidden by default) -->
+                <nav id="mobile-menu"
+                    class="hidden md:hidden flex flex-col space-y-2 mt-2 bg-purple-700 text-white p-4 rounded-lg">
+                    @if (Auth::user()->role == 'admin')
+                        @include('layouts.navigation.admin')
+                    @else
+                        @include('layouts.navigation.participant')
+                    @endif
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        @method('POST')
+                        <button type="submit" class="text-white hover:text-blue-300 text-lg">Logout</button>
+                    </form>
+                </nav>
+            </div>
+
+            <!-- JavaScript to Toggle Mobile Menu -->
+            <script>
+                document.getElementById("mobile-menu-button").addEventListener("click", function() {
+                    const mobileMenu = document.getElementById("mobile-menu");
+                    mobileMenu.classList.toggle("hidden"); // Toggle visibility of the mobile menu
+                });
+            </script>
         </header>
 
         <!-- Page Content -->
