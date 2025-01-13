@@ -8,7 +8,7 @@
 
 <ul>
     <li>Permet aux étudiants de participer facilement aux activitées </li>
-    <li>Faciliter la planficiation et la gestion des matches pour les organisateurs</li>
+    <li>Faciliter la planficiation et la gestion des matches pour l'administrateur </li>
 </ul>
 
 ## Guide d'installation

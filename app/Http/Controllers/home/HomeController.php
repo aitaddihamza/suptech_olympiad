@@ -40,7 +40,7 @@ class HomeController extends Controller
                 $query->whereDate('schedule_date', $searchDate);
             })
             ->orderBy('schedule_date', 'asc')
-            ->paginate(10);
+            ->paginate(5);
 
         // Query pour les matchs passés
         $pastMatches = Game::with('player1', 'player2', 'activity')
@@ -60,7 +60,7 @@ class HomeController extends Controller
                 $query->whereDate('schedule_date', $searchDate);
             })
             ->orderBy('schedule_date', 'desc')
-            ->paginate(10);
+            ->paginate(5);
 
         return view('home.matches', compact('upcomingMatches', 'pastMatches'));
     }
